@@ -84,7 +84,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang="en" className={`${inter.className} h-full scroll-smooth`}>
 			<head />
-			<body className="h-full bg-background text-secondary-foreground">{children}</body>
+			<body className="h-full overscroll-none bg-background text-secondary-foreground">{children}</body>
 		</html>
 	)
 }
