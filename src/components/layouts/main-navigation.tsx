@@ -8,23 +8,17 @@ import { MainNavigationItem } from '@/types'
 
 import { cn } from '@/lib/utils'
 
-import Logo from '@/components/logo'
-
-type MainNavigationProps = {
+interface MainNavigationProps extends React.ComponentProps<'nav'> {
 	items?: MainNavigationItem[]
 }
 
-const MainNavigation = ({ items }: MainNavigationProps) => {
+const MainNavigation = ({ items, className, ...props }: MainNavigationProps) => {
 	const pathname = usePathname()
 
 	return (
-		<div className="hidden w-full gap-14 2md:flex 2md:items-center 2md:justify-between">
-			<Logo />
+		<React.Fragment>
 			{items?.[0]?.items ? (
-				<nav
-					aria-label="main"
-					className="flex items-center text-sm leading-6 font-medium text-secondary-foreground first-letter:uppercase"
-				>
+				<nav aria-label="main" className={cn(className)} {...props}>
 					<ul className="flex space-x-8">
 						{items[0].items.map((item) => {
 							return (
@@ -44,7 +38,7 @@ const MainNavigation = ({ items }: MainNavigationProps) => {
 					</ul>
 				</nav>
 			) : null}
-		</div>
+		</React.Fragment>
 	)
 }
 
