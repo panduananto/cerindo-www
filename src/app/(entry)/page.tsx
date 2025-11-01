@@ -10,6 +10,7 @@ import CompanyClientCarousel from '@/components/company-client-carousel'
 import CompanyProjectCarousel, { CompanyProjectCarouselSkeleton } from '@/components/company-project-carousel'
 import CompanyServiceTabs from '@/components/company-service-tabs'
 import Icons from '@/components/icons'
+import { Separator } from '@/components/ui/separator'
 
 export default async function IndexPage() {
 	const { getInTouch } = marketingConfig
@@ -69,30 +70,32 @@ export default async function IndexPage() {
 					</div>
 				</header>
 				<aside className="bg-primary text-background">
-					<div className="mx-auto flex max-w-6xl flex-col items-center justify-between space-y-0 divide-y divide-red-700/90 px-4 py-10 2md:flex-row 2md:space-y-0 2md:divide-y-0 sm:px-6 lg:px-8 lg:py-14">
-						{marketingConfig.overviews.map((overview) => {
+					<div className="mx-auto flex max-w-6xl flex-col items-center justify-between space-y-0 px-4 py-10 2md:flex-row 2md:space-y-0 2md:divide-y-0 sm:px-6 lg:px-8 lg:py-14">
+						{marketingConfig.overviews.map((overview, index) => {
 							const Icon = Icons[overview.icon as keyof typeof Icons]
 
 							return (
-								<div
-									key={`overview-${overview.icon}`}
-									className="flex flex-col items-center space-y-2 space-x-0 pb-6 2md:items-start 2md:py-0 lg:flex-row lg:space-y-0 lg:space-x-4"
-								>
-									<Icon className="size-7 2md:size-9" />
-									<div className="space-y-2 text-center 2md:text-left">
-										<p className="font-light">{overview.title}</p>
-										{overview.asLink ? (
-											<a
-												href={`${overview.linkType}:${overview.text}`}
-												className="block rounded text-base font-medium no-underline hover:underline hover:decoration-2 hover:underline-offset-4 focus:outline-2 focus:outline-offset-4 focus:outline-background focus:outline-dashed 2md:text-lg"
-											>
-												{overview.text}
-											</a>
-										) : (
-											<span className="block text-base font-medium 2md:text-lg">{overview.text}</span>
-										)}
+								<React.Fragment key={`overview-${overview.icon}`}>
+									<div className="flex flex-col items-center space-y-2 space-x-0 2md:items-start lg:flex-row lg:space-y-0 lg:space-x-4">
+										<Icon className="size-7 2md:size-9" />
+										<div className="space-y-2 text-center 2md:text-left">
+											<p className="font-light">{overview.title}</p>
+											{overview.asLink ? (
+												<a
+													href={`${overview.linkType}:${overview.text}`}
+													className="block rounded text-base font-medium no-underline hover:underline hover:decoration-2 hover:underline-offset-4 focus:outline-2 focus:outline-offset-4 focus:outline-background focus:outline-dashed 2md:text-lg"
+												>
+													{overview.text}
+												</a>
+											) : (
+												<span className="block text-base font-medium 2md:text-lg">{overview.text}</span>
+											)}
+										</div>
 									</div>
-								</div>
+									{index < marketingConfig.overviews.length - 1 && (
+										<Separator className="my-6 block !w-[200px] 2md:hidden" />
+									)}
+								</React.Fragment>
 							)
 						})}
 					</div>
